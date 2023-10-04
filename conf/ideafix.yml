@@ -6,6 +6,8 @@ target:
   - core-image-minimal
 
 repos:
+  meta-ledloop:
+    path: meta-ledloop
   meta-raspberrypi:
     url: https://github.com/agherzan/meta-raspberrypi
     path: sources/meta-raspberrypi
@@ -37,13 +39,6 @@ repos:
     path: sources/meta-security
     refspec: kirkstone
 
-  meta-erni:
-    url: https://github.com/ERNI-Academy/starterkit-embedded-erni-yocto.git
-    path: sources/meta-erni
-    refspec: main
-    layers:
-      meta-erni:
-
 bblayers_conf_header:
   standard: |
     POKY_BBLAYERS_CONF_VERSION = "2"
@@ -61,10 +56,6 @@ local_conf_header:
   directory_configs: |
     DL_DIR ?= "${TOPDIR}/../dl"
     SSTATE_DIR ?= "${TOPDIR}/../sstate"
-
-  debug_only_features: |
-    # like root user without pass
-    EXTRA_IMAGE_FEATURES += "debug-tweaks"
 
   save_space_configs: |
     INHERIT += "rm_work"
