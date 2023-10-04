@@ -32,7 +32,7 @@ while (( $# )); do
             __conf_name="$2"
             shift
             ;;
-        -wi|--wifi-interactive)
+        -wi|--wifi)
             __wifi_settings_interactive=1
             ;;
         -d|--debug)
@@ -84,7 +84,7 @@ then
 fi
 if [ -n "${WIFISSID}" ] && [ -n "${WIFIPASS}" ]
 then
-    pushd ./sources/meta-erni/meta-erni/recipes-connectivity/wpa-supplicant/files || return
+    pushd ./sources/meta-ledloop/recipes-connectivity/wpa-supplicant/files || return
     sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf.custom
     sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf.custom
     popd || return
