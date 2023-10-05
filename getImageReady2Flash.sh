@@ -11,6 +11,6 @@ then
     exit 1
 fi
 
-pushd "${buildDir}"/tmp-glibc/deploy/images/raspberrypi3 || return
-bmaptool copy core-image-minimal-raspberrypi3.wic.bz2 "${currentPath}"/disk.img
+pushd "${buildDir}"/tmp-glibc/deploy/images/raspberrypi0-wifi || return
+bmaptool copy core-image-minimal-raspberrypi0-wifi.wic.bz2 "${currentPath}"/disk.img
 popd || return
