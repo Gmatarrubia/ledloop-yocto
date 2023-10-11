@@ -1,0 +1,52 @@
+--- a/setup.py	2023-09-19 19:22:00.000000000 +0200
++++ b/setup.py	2023-10-11 12:48:14.936154532 +0200
+@@ -21,24 +21,7 @@
+ with io.open(os.path.join(here, "README.rst"), encoding="utf-8") as f:
+     long_description = "\n" + f.read()
+
+-board_reqs = []
+-if os.path.exists("/proc/device-tree/compatible"):
+-    with open("/proc/device-tree/compatible", "rb") as f:
+-        compat = f.read()
+-    if b"nvidia,tegra" in compat:
+-        board_reqs = ["Jetson.GPIO"]
+-    if (
+-        b"brcm,bcm2835" in compat
+-        or b"brcm,bcm2836" in compat
+-        or b"brcm,bcm2837" in compat
+-        or b"brcm,bcm2838" in compat
+-        or b"brcm,bcm2711" in compat
+-    ):
+-        board_reqs = ["RPi.GPIO", "rpi_ws281x>=4.0.0", "sysv_ipc>=1.1.0"]
+-    if (
+-        b"ti,am335x" in compat
+-    ):  # BeagleBone Black, Green, PocketBeagle, BeagleBone AI, etc.
+-        board_reqs = ["Adafruit_BBIO"]
++board_reqs = ["RPi.GPIO", "rpi_ws281x>=4.0.0", "sysv_ipc>=1.1.0"]
+
+ setup(
+     name="Adafruit-Blinka",
+@@ -69,22 +52,14 @@
+         "micropython",
+         "neopixel_write",
+         "onewireio",
+-        "pulseio",
+         "pwmio",
+         "rainbowio",
+         "usb_hid",
+     ],
+     package_data={
+-        "adafruit_blinka.microcontroller.bcm283x.pulseio": [
+-            "libgpiod_pulsein",
+-            "libgpiod_pulsein64",
+-        ],
+-        "adafruit_blinka.microcontroller.amlogic.meson_g12_common.pulseio": [
+-            "libgpiod_pulsein",
+-        ],
+         "micropython-stubs": ["*.pyi"],
+     },
+-    include_package_data=True,
++    include_package_data=False,
+     install_requires=[
+         "Adafruit-PlatformDetect>=3.52.0",
+         "Adafruit-PureIO>=1.1.7",
