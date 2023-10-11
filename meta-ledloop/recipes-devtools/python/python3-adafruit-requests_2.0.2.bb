@@ -21,8 +21,11 @@ do_install:append() {
 }
 do_configure:prepend() {
 cat > ${S}/setup.py <<-EOF
-from setuptools import setup
+from setuptools import setup, find_packages
 
-setup()
+setup(
+    name="${PN}",
+    version="${PV}",
+)
 EOF
 }

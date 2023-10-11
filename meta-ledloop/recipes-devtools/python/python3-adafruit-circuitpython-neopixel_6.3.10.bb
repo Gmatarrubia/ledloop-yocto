@@ -12,7 +12,6 @@ inherit pypi setuptools3
 
 RDEPENDS_${PN} = "python3-core"
 
-S = "${WORKDIR}/build"
 do_install:append() {
     install -d ${D}/usr/lib/python3.10/site-packages/
     install -m 664 ${WORKDIR}/adafruit-circuitpython-neopixel-6.3.10/neopixel.py ${D}/usr/lib/python3.10/site-packages/neopixel.py
@@ -20,8 +19,11 @@ do_install:append() {
 }
 do_configure:prepend() {
 cat > ${S}/setup.py <<-EOF
-from setuptools import setup
+from setuptools import setup, find_packages
 
-setup()
+setup(
+    name="${PN}",
+    version="${PV}",
+)
 EOF
 }
