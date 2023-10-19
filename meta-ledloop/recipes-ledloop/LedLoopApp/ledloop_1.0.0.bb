@@ -6,8 +6,10 @@ SRC_URI = "\
     file://ledloop.service \
     file://example_2.py \
     file://example_3.py \
+    file://off.py \
+    file://send_off.py \
 "
-SRCREV = "607c28712d14fa8efadf9320fc61a4c05801e55d"
+SRCREV = "25cd7a2228db14cb9b89ecef67aaba6179775be3"
 S = "${WORKDIR}/git"
 
 inherit systemd
@@ -39,6 +41,8 @@ do_install() {
       install -m755 "${S}/ledloop.py" "${D}/home/root/ledloop.py"
       install -m755 "${WORKDIR}/example_2.py" "${D}/home/root/example_2.py"
       install -m755 "${WORKDIR}/example_3.py" "${D}/home/root/example_3.py"
+      install -m755 "${WORKDIR}/off.py" "${D}/home/root/off.py"
+      install -m755 "${WORKDIR}/send_off.py" "${D}/home/root/send_off.py"
 
       install -d ${D}/${systemd_unitdir}/system
       install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
