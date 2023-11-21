@@ -9,7 +9,7 @@ SRC_URI = "\
     file://off.py \
     file://send_off.py \
 "
-SRCREV = "25cd7a2228db14cb9b89ecef67aaba6179775be3"
+SRCREV = "c53c0af877156b0757ea69695bf0308880b125e2"
 S = "${WORKDIR}/git"
 
 inherit systemd

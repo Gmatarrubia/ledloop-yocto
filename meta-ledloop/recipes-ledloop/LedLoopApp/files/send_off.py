@@ -2,8 +2,9 @@ import zmq
 import time
 
 context = zmq.Context()
-socket = context.socket(zmq.PUB)
-socket.bind("ipc:///tmp/ledSequence")
+socket = context.socket(zmq.PAIR)
+socket.connect("tcp://192.168.1.42:28700")
 
-print("Switching off leds")
-socket.send_string(f"ledsequence off")
+while True:
+    print("Switching on leds")
+    socket.send_string(f"ledsequence on")

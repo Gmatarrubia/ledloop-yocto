@@ -1,0 +1,117 @@
+diff --git a/meta-python/recipes-devtools/python/python3-debugpy/0001-arch-use-generic-yocto-architecture-suffix.patch b/meta-python/recipes-devtools/python/python3-debugpy/0001-arch-use-generic-yocto-architecture-suffix.patch
+new file mode 100644
+index 000000000..0a58b39fa
+--- /dev/null
++++ b/meta-python/recipes-devtools/python/python3-debugpy/0001-arch-use-generic-yocto-architecture-suffix.patch
+@@ -0,0 +1,64 @@
++From f6552b6d3cef48401188fcacd8718f9268493608 Mon Sep 17 00:00:00 2001
++From: Enguerrand de Ribaucourt <enguerrand.de-ribaucourt@savoirfairelinux.com>
++Date: Thu, 30 Jun 2022 14:51:36 +0200
++Subject: [PATCH] arch: use generic yocto architecture suffix
++
++A precompiled attach_linux_<arch>.so library comes for only a limited
++number of architectures in debugpy. We have to compile it for the
++others.
++
++Yocto may use the TARGET_ARCH suffix but it will be different than what is
++returned at runtime by Python's platform.machine(). Ex: core2-64/amd64.
++This makes it hard to match the names used to generate and load the
++library.
++
++We ease the process of matching both by using a generating "yocto"
++suffix.
++
++Upstream-Status: Inappropriate
++Signed-off-by: Enguerrand de Ribaucourt <enguerrand.de-ribaucourt@savoirfairelinux.com>
++---
++ .../pydevd_attach_to_process/add_code_to_python_process.py   | 5 ++---
++ src/debugpy/_vendored/pydevd/pydevd_tracing.py               | 5 ++---
++ 2 files changed, 4 insertions(+), 6 deletions(-)
++
++diff --git a/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py b/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
++index 3c0e1b94..4c7d4b46 100644
++--- a/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
+++++ b/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
++@@ -171,8 +171,8 @@ def get_target_filename(is_target_process_64=None, prefix=None, extension=None):
++     elif IS_LINUX:
++         if not extension:
++             extension = '.so'
++-        suffix_64 = 'amd64'
++-        suffix_32 = 'x86'
+++        suffix_64 = 'yocto'
+++        suffix_32 = 'yocto'
++
++     elif IS_MAC:
++         if not extension:
++@@ -577,4 +577,3 @@ if __name__ == '__main__':
++             test()
++         else:
++             main(args)
++-
++diff --git a/src/debugpy/_vendored/pydevd/pydevd_tracing.py b/src/debugpy/_vendored/pydevd/pydevd_tracing.py
++index 561d7f71..7acbf3e1 100644
++--- a/src/debugpy/_vendored/pydevd/pydevd_tracing.py
+++++ b/src/debugpy/_vendored/pydevd/pydevd_tracing.py
++@@ -157,8 +157,8 @@ def get_python_helper_lib_filename():
++
++     elif IS_LINUX:
++         extension = '.so'
++-        suffix_64 = 'amd64'
++-        suffix_32 = 'x86'
+++        suffix_64 = 'yocto'
+++        suffix_32 = 'yocto'
++
++     elif IS_MAC:
++         extension = '.dylib'
++@@ -372,4 +372,3 @@ def set_trace_to_threads(tracing_func, thread_idents=None, create_dummy_thread=T
++                     ret = result
++
++     return ret
++-
+diff --git a/meta-python/recipes-devtools/python/python3-debugpy_1.6.0.bb b/meta-python/recipes-devtools/python/python3-debugpy_1.6.0.bb
+new file mode 100644
+index 000000000..1fe238169
+--- /dev/null
++++ b/meta-python/recipes-devtools/python/python3-debugpy_1.6.0.bb
+@@ -0,0 +1,40 @@
++SUMMARY = "An implementation of the Debug Adapter Protocol for Python 3"
++LICENSE = "MIT & EPL-1.0"
++LIC_FILES_CHKSUM = "file://LICENSE;md5=18496e0e5a38c5caaade8503120ef9ea \
++                    file://src/debugpy/_vendored/pydevd/LICENSE;md5=30b3836521b3d65bef598bbc358a3afa \
++                    file://src/debugpy/_vendored/pydevd/_pydevd_frame_eval/vendored/bytecode-0.13.0.dev0.dist-info/COPYING;md5=0b470642172a83f6cf504fba28bac72f"
++SRCREV = "2ac9538dd5d59d0bb582d445e4a6b87663cfbab4"
++
++SRC_URI = "git://git@github.com/microsoft/debugpy.git;protocol=ssh;branch=main \
++           file://0001-arch-use-generic-yocto-architecture-suffix.patch \
++           "
++
++S = "${WORKDIR}/git"
++
++inherit setuptools3
++
++EXTRA_CXXFLAGS += "-fPIC -nostartfiles"
++
++do_compile:append() {
++    ${CC} -o ${S}/src/debugpy/_vendored/pydevd/attach_linux_yocto.so ${S}/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/linux_and_mac/attach.cpp ${CXXFLAGS} ${EXTRA_CXXFLAGS} ${LDFLAGS} -shared
++}
++do_install:append() {
++    install -m 0755 ${S}/src/debugpy/_vendored/pydevd/attach_linux_yocto.so ${D}${libdir}/${PYTHON_DIR}/site-packages/debugpy/_vendored/pydevd/pydevd_attach_to_process/
++}
++
++RDEPENDS:${PN}:append = " \
++    gdb \
++    python3-core \
++    python3-ctypes \
++    python3-distutils \
++    python3-io \
++    python3-json \
++    python3-math \
++    python3-misc \
++    python3-multiprocessing \
++    python3-numbers \
++    python3-pickle \
++    python3-setuptools \
++    python3-unixadmin \
++    python3-xmlrpc \
++"
+--
