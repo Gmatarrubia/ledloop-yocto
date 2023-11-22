@@ -30,7 +30,7 @@ pixels2.fill((0, 0, 0))
 while True:
     pixels.fill((0, 0, 0))
     pixels2.fill((0, 0, 0))
-    for p in range(0, 200):
+    for p in range(0, num_pixels):
         pixels.fill((0, 0, 80))
         pixels2.fill((0, 0, 80))
         pixels[p]=(250, 250, 250)
