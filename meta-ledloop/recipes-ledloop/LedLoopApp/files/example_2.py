@@ -11,18 +11,22 @@ import neopixel
 # Choose an open pin connected to the Data In of the NeoPixel strip, i.e. board.D18
 # NeoPixels must be connected to D10, D12, D18 or D21 to work.
 pixel_pin = board.D10
+pixel2_pin = board.D18
 
 # The number of NeoPixels
-num_pixels = 80
+num_pixels = 24
 
 # The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
 # For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
 ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
-    pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
+    pixel_pin, num_pixels, brightness=0.4, auto_write=False, pixel_order=ORDER
 )
 
+pixels2 = neopixel.NeoPixel(
+    pixel2_pin, num_pixels, brightness=0.4, auto_write=False, pixel_order=ORDER
+)
 
 def wheel(pos):
     # Input a value 0 to 255 to get a color value.
@@ -51,30 +55,38 @@ def rainbow_cycle(wait):
         for i in range(num_pixels):
             pixel_index = (i * 256 // num_pixels) + j
             pixels[i] = wheel(pixel_index & 255)
+            pixels2[i] = wheel(pixel_index & 255)
         pixels.show()
+        pixels2.show()
         time.sleep(wait)
 
 
 while True:
     # Comment this line out if you have RGBW/GRBW NeoPixels
     pixels.fill((255, 0, 0))
+    pixels2.fill((255, 0, 0))
     # Uncomment this line if you have RGBW/GRBW NeoPixels
     # pixels.fill((255, 0, 0, 0))
     pixels.show()
+    pixels2.show()
     time.sleep(1)
 
     # Comment this line out if you have RGBW/GRBW NeoPixels
     pixels.fill((0, 255, 0))
+    pixels2.fill((0, 255, 0))
     # Uncomment this line if you have RGBW/GRBW NeoPixels
     # pixels.fill((0, 255, 0, 0))
     pixels.show()
+    pixels2.show()
     time.sleep(1)
 
     # Comment this line out if you have RGBW/GRBW NeoPixels
     pixels.fill((0, 0, 255))
+    pixels2.fill((0, 0, 255))
     # Uncomment this line if you have RGBW/GRBW NeoPixels
     # pixels.fill((0, 0, 255, 0))
     pixels.show()
+    pixels2.show()
     time.sleep(1)
 
     rainbow_cycle(0.001)  # rainbow cycle with 1ms delay per step
