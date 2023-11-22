@@ -1,15 +1,14 @@
 LICENSE = "GNUv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464"
 
-SRC_URI = "\
-    git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branch=main \
-    file://ledloop.service \
-    file://example_2.py \
-    file://example_3.py \
-    file://off.py \
-    file://send_off.py \
-"
-SRCREV = "c53c0af877156b0757ea69695bf0308880b125e2"
+SRC_URI = "git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branch=main \
+           file://ledloop.service \
+           file://example_2.py \
+           file://example_3.py \
+           file://off.py \
+           file://send_off.py \
+           "
+SRCREV = "9d0acedf191a24685bf937fa8de5574644bd6705"
 S = "${WORKDIR}/git"
 
 inherit systemd
@@ -38,8 +37,8 @@ RDEPENDS:${PN} = "\
 
 do_install() {
       install -d ${D}/home/root/
-      install -m755 "${S}/ledloop.py" "${D}/home/root/ledloop.py"
-      install -m755 "${WORKDIR}/example_2.py" "${D}/home/root/example_2.py"
+      install -m755 "${S}"/*.py "${D}/home/root/"
+      install -D -m755 "${WORKDIR}/example_2.py" "${D}/home/root/example_2.py"
       install -m755 "${WORKDIR}/example_3.py" "${D}/home/root/example_3.py"
       install -m755 "${WORKDIR}/off.py" "${D}/home/root/off.py"
       install -m755 "${WORKDIR}/send_off.py" "${D}/home/root/send_off.py"
