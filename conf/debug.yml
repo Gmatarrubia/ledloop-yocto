@@ -8,3 +8,4 @@ local_conf_header:
        git \
        python3-debugpy \
     "
+    OVERRIDES:append = ":debug"
