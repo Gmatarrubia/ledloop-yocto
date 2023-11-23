@@ -33,11 +33,6 @@ repos:
       meta-perl:
       meta-multimedia:
       meta-filesystems:
-    patches:
-      add-debugpy:
-        repo: meta-ledloop
-        path: repo-patches/add-python3-debugpy.patch
-
 
   meta-security:
     url: https://git.yoctoproject.org/git/meta-security

@@ -1,0 +1,65 @@
+From f6552b6d3cef48401188fcacd8718f9268493608 Mon Sep 17 00:00:00 2001
+From: Enguerrand de Ribaucourt <enguerrand.de-ribaucourt@savoirfairelinux.com>
+Date: Thu, 30 Jun 2022 14:51:36 +0200
+Subject: [PATCH] arch: use generic yocto architecture suffix
+
+A precompiled attach_linux_<arch>.so library comes for only a limited
+number of architectures in debugpy. We have to compile it for the
+others.
+
+Yocto may use the TARGET_ARCH suffix but it will be different than what is
+returned at runtime by Python's platform.machine(). Ex: core2-64/amd64.
+This makes it hard to match the names used to generate and load the
+library.
+
+We ease the process of matching both by using a generating "yocto"
+suffix.
+
+Upstream-Status: Inappropriate
+Signed-off-by: Enguerrand de Ribaucourt <enguerrand.de-ribaucourt@savoirfairelinux.com>
+---
+ .../pydevd_attach_to_process/add_code_to_python_process.py   | 5 ++---
+ src/debugpy/_vendored/pydevd/pydevd_tracing.py               | 5 ++---
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py b/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
+index 3c0e1b94..4c7d4b46 100644
+--- a/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
++++ b/src/debugpy/_vendored/pydevd/pydevd_attach_to_process/add_code_to_python_process.py
+@@ -171,8 +171,8 @@ def get_target_filename(is_target_process_64=None, prefix=None, extension=None):
+     elif IS_LINUX:
+         if not extension:
+             extension = '.so'
+-        suffix_64 = 'amd64'
+-        suffix_32 = 'x86'
++        suffix_64 = 'yocto'
++        suffix_32 = 'yocto'
+
+     elif IS_MAC:
+         if not extension:
+@@ -577,4 +577,3 @@ if __name__ == '__main__':
+             test()
+         else:
+             main(args)
+-
+diff --git a/src/debugpy/_vendored/pydevd/pydevd_tracing.py b/src/debugpy/_vendored/pydevd/pydevd_tracing.py
+index 561d7f71..7acbf3e1 100644
+--- a/src/debugpy/_vendored/pydevd/pydevd_tracing.py
++++ b/src/debugpy/_vendored/pydevd/pydevd_tracing.py
+@@ -157,8 +157,8 @@ def get_python_helper_lib_filename():
+
+     elif IS_LINUX:
+         extension = '.so'
+-        suffix_64 = 'amd64'
+-        suffix_32 = 'x86'
++        suffix_64 = 'yocto'
++        suffix_32 = 'yocto'
+
+     elif IS_MAC:
+         extension = '.dylib'
+@@ -372,4 +372,3 @@ def set_trace_to_threads(tracing_func, thread_idents=None, create_dummy_thread=T
+                     ret = result
+
+     return ret
+-
+--
