@@ -8,7 +8,7 @@ SRC_URI = "git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branc
            file://off.py \
            file://send_off.py \
            "
-SRCREV = "9d0acedf191a24685bf937fa8de5574644bd6705"
+SRCREV = "ae100c3542854422ccc73a8630f6dc495a8b8e8a"
 S = "${WORKDIR}/git"
 
 inherit systemd
