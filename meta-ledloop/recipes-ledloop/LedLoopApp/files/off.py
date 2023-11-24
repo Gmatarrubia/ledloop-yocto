@@ -17,6 +17,7 @@ PIXELS_2 = neopixel.NeoPixel(LED_DATA_PIN2, COUNT_LED2, pixel_order=RGB, brightn
 PIXELS.fill((0, 0, 0))
 PIXELS_2.fill((0, 0, 0))
 
+PIXELS.show()
 PIXELS_2.show()
 
 exit(0)

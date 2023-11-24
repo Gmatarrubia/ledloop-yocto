@@ -11,7 +11,7 @@ import neopixel
 # Global configuration
 LED_DATA_PIN = board.D10
 LED_DATA_PIN2 = board.D18
-COUNT_LED = 18
+COUNT_LED = 24
 COUNT_LED2 = 24
 RGB = neopixel.GRB
 BRIGHTNESS = 0.4

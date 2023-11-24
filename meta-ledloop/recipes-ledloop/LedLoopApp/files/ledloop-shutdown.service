@@ -1,0 +1,14 @@
+[Unit]
+Description=Shutdown ledLoop before poweroff the RPI
+
+DefaultDependencies=no
+Before= shutdown.target
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/home/root/off.py
+
+[Install]
+WantedBy=shutdown.target

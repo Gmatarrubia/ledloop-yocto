@@ -3,6 +3,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464"
 
 SRC_URI = "git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branch=main \
            file://ledloop.service \
+           file://ledloop-shutdown.service \
            file://example_2.py \
            file://example_3.py \
            file://off.py \
@@ -14,10 +15,11 @@ S = "${WORKDIR}/git"
 inherit systemd
 
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE:${PN}:append = " ledloop.service "
+SYSTEMD_SERVICE:${PN}:append = " ledloop.service ledloop-shutdown.service "
 
 FILES:${PN} += " home/root/*"
 FILES:${PN} += "${systemd_unitdir}/system/ledloop.service"
+FILES:${PN} += "${systemd_unitdir}/system/ledloop-shutdown.service"
 
 RDEPENDS:${PN} = "\
     rpi-gpio \
@@ -45,5 +47,8 @@ do_install() {
 
       install -d ${D}/${systemd_unitdir}/system
       install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
+      install -m 0644 ${WORKDIR}/ledloop-shutdown.service ${D}/${systemd_unitdir}/system/ledloop-shutdown.service
       install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
+      install -d ${D}${sysconfdir}/systemd/system/shutdown.target.wants/
+      ln -s ${systemd_unitdir}/ledloop-shutdown.service ${D}${sysconfdir}/systemd/system/shutdown.target.wants/ledloop-shutdown.service
 }
