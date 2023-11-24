@@ -7,9 +7,8 @@ SRC_URI = "git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branc
            file://example_2.py \
            file://example_3.py \
            file://off.py \
-           file://send_off.py \
            "
-SRCREV = "ae100c3542854422ccc73a8630f6dc495a8b8e8a"
+SRCREV = "ecfcb9be37f9a34d977a595073560b91be5511e5"
 S = "${WORKDIR}/git"
 
 inherit systemd
@@ -43,7 +42,6 @@ do_install() {
       install -D -m755 "${WORKDIR}/example_2.py" "${D}/home/root/example_2.py"
       install -m755 "${WORKDIR}/example_3.py" "${D}/home/root/example_3.py"
       install -m755 "${WORKDIR}/off.py" "${D}/home/root/off.py"
-      install -m755 "${WORKDIR}/send_off.py" "${D}/home/root/send_off.py"
 
       install -d ${D}/${systemd_unitdir}/system
       install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
