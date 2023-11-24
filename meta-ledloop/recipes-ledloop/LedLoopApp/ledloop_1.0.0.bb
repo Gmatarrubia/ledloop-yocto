@@ -39,6 +39,7 @@ RDEPENDS:${PN} = "\
 do_install() {
       install -d ${D}/home/root/
       install -m755 "${S}"/*.py "${D}/home/root/"
+      install -m755 "${S}"/*.json "${D}/home/root/"
       install -D -m755 "${WORKDIR}/example_2.py" "${D}/home/root/example_2.py"
       install -m755 "${WORKDIR}/example_3.py" "${D}/home/root/example_3.py"
       install -m755 "${WORKDIR}/off.py" "${D}/home/root/off.py"
