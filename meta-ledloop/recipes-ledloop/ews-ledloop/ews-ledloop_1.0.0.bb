@@ -8,7 +8,7 @@ LICENSE = "CLOSED"
 inherit flutter-web
 
 SRC_URI = "git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main"
-SRCREV = "08ad112bb9c5d8da5809c7047d73ba73a3d86ecc"
+SRCREV = "5c1d3fa4470385aab413a143c25704f944081f62"
 
 S = "${WORKDIR}/git"
 
