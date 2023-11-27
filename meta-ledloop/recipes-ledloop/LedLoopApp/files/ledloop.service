@@ -8,7 +8,8 @@ After= network.target
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/home/root/ledloop/ledloop.py
+ExecStart=/home/ledloop/app-ledloop/ledloop.py
+User=ledloop
 
 [Install]
 WantedBy=multi-user.target

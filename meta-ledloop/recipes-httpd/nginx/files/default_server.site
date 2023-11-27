@@ -3,7 +3,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    root /home/root/ews-ledloop;
+    root /home/ledloop/ews-ledloop;
 
     index index.html index.htm;
 

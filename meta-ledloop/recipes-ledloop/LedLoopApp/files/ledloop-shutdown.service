@@ -8,7 +8,8 @@ Before= shutdown.target
 [Service]
 Type=oneshot
 RemainAfterExit=no
-ExecStart=/home/root/ledloop/off.py
+ExecStart=/home/ledloop/app-ledloop/off.py
+User=ledloop
 
 [Install]
 WantedBy=shutdown.target

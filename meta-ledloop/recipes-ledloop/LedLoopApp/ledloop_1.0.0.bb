@@ -1,22 +1,24 @@
 LICENSE = "GNUv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464"
 
-SRC_URI = "git://github.com/Gmatarrubia/rpi-zw-led-loop.git;protocol=https;branch=main \
+SRC_URI = "git://github.com/Gmatarrubia/app-ledloop.git;protocol=https;branch=main \
            file://ledloop.service \
            file://ledloop-shutdown.service \
            file://example_2.py \
            file://example_3.py \
            file://off.py \
            "
-SRCREV = "7051e837dbadc4263a44af775787e21dad7f75e4"
+SRCREV = "5c1d3fa4470385aab413a143c25704f944081f62"
 S = "${WORKDIR}/git"
 
+require conf/include/ledloop-user-common.inc
+inherit useradd
 inherit systemd
 
 SYSTEMD_AUTO_ENABLE = "enable"
 SYSTEMD_SERVICE:${PN}:append = " ledloop.service ledloop-shutdown.service "
 
-FILES:${PN} += " home/root/*"
+FILES:${PN} += "${LEDLOOP_APP_PATH}*"
 FILES:${PN} += "${systemd_unitdir}/system/ledloop.service"
 FILES:${PN} += "${systemd_unitdir}/system/ledloop-shutdown.service"
 
@@ -36,14 +38,21 @@ RDEPENDS:${PN} = "\
     python3-pyzmq \
 "
 
+USERADD_PACKAGES = "${PN}"
+USERADD_PARAM:${PN} = " \
+	--home ${LEDLOOP_USER_PATH} \
+	--groups users \
+	--user-group ${LEDLOOP_USER_NAME}\
+"
+
 do_install() {
-      APP_ROOT="/home/root/ledloop/"
-      install -d ${D}${APP_ROOT}
-      install -m755 "${S}"/*.py "${D}${APP_ROOT}"
-      install -m755 "${S}"/*.json "${D}${APP_ROOT}"
-      install -D -m755 "${WORKDIR}/example_2.py" "${D}${APP_ROOT}example_2.py"
-      install -m755 "${WORKDIR}/example_3.py" "${D}${APP_ROOT}example_3.py"
-      install -m755 "${WORKDIR}/off.py" "${D}${APP_ROOT}off.py"
+      install -d ${D}${LEDLOOP_APP_PATH}
+      install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
+      install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
+      install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}example_2.py"
+      install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}example_3.py"
+      install -m755 "${WORKDIR}/off.py" "${D}${LEDLOOP_APP_PATH}off.py"
+      chown ${LEDLOOP_USER_NAME}:users -R ${D}${LEDLOOP_APP_PATH}
 
       install -d ${D}/${systemd_unitdir}/system
       install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
