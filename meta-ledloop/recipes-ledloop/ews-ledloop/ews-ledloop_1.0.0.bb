@@ -5,7 +5,7 @@ HOMEPAGE = "https://github.com/Gmatarrubia/ledloop-ews"
 SECTION = "web"
 LICENSE = "CLOSED"
 
-inherit flutter-web-app
+inherit flutter-web
 
 SRC_URI = "git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main"
 SRCREV = "08ad112bb9c5d8da5809c7047d73ba73a3d86ecc"
