@@ -9,7 +9,6 @@ After= network.target
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/home/ledloop/app-ledloop/ledloop.py
-User=ledloop
 
 [Install]
 WantedBy=multi-user.target

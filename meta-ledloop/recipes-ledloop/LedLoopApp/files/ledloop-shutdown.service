@@ -9,7 +9,6 @@ Before= shutdown.target
 Type=oneshot
 RemainAfterExit=no
 ExecStart=/home/ledloop/app-ledloop/off.py
-User=ledloop
 
 [Install]
 WantedBy=shutdown.target
