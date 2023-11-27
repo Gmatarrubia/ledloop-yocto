@@ -40,6 +40,16 @@ repos:
     path: sources/meta-security
     refspec: kirkstone
 
+  meta-clang:
+    url: https://github.com/kraj/meta-clang
+    path: sources/meta-clang
+    refspec: kirkstone
+
+  meta-flutter:
+    url: https://github.com/Gmatarrubia/meta-flutter.git
+    path: sources/meta-flutter
+    refspec: kirkstone
+
 bblayers_conf_header:
   standard: |
     POKY_BBLAYERS_CONF_VERSION = "2"
