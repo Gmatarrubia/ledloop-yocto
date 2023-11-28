@@ -11,4 +11,7 @@ server {
 
     # redirect server error pages to the static page /50x.html
     error_page 500 502 503 504 /50x.html;
+
+    # Include fast cgi wrapper configuration
+    include fcgiwrap.conf;
 }

@@ -1,0 +1,14 @@
+[Unit]
+Description=Allow everybody can use the fcgiwrap socket
+
+Requires=fcgiwrap.service
+After=fcgiwrap.service
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=chmod 777 /var/run/fcgiwrap.socket
+
+[Install]
+WantedBy=multi-user.target
