@@ -17,6 +17,7 @@ SRCREV = "cedbf7899caab604986de15a0e8d70d23007ec02"
 SRC_URI = " \
     git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main \
     file://test.py \
+    file://test-simple.py \
 "
 
 
@@ -39,6 +40,7 @@ do_install:append() {
 
     install -d "${D}/${FLUTTER_INSTALL_DIR}scripts"
     install -D -m755 "${WORKDIR}/test.py" "${D}${FLUTTER_INSTALL_DIR}scripts/test.py"
+    install -D -m755 "${WORKDIR}/test-simple.py" "${D}${FLUTTER_INSTALL_DIR}scripts/test-simple.py"
     # Asigning appropriate user and group
     chown ${LEDLOOP_USER_NAME}:users -R ${D}${FLUTTER_INSTALL_DIR}
 }
