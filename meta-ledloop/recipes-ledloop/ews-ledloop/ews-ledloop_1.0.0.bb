@@ -13,7 +13,7 @@ inherit useradd
 RDEPENDS:${PN} += "nginx python3-core"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/scripts:"
-SRCREV = "cedbf7899caab604986de15a0e8d70d23007ec02"
+SRCREV = "fee811faad30c8227bf933c206fad89d361c50bd"
 SRC_URI = " \
     git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main \
     file://test.py \
