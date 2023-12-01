@@ -12,7 +12,6 @@ SRCREV = "8ef8c193989e93e8f6a4e64a3bb23dba29ce69e1"
 S = "${WORKDIR}/git"
 
 require conf/include/ledloop-user-common.inc
-inherit useradd
 inherit systemd
 
 SYSTEMD_AUTO_ENABLE = "enable"
@@ -38,26 +37,25 @@ RDEPENDS:${PN} = "\
     python3-pyzmq \
 "
 
-USERADD_PACKAGES = "${PN}"
-USERADD_PARAM:${PN} = " \
-	--home ${LEDLOOP_USER_PATH} \
-	--groups users \
-	--user-group ${LEDLOOP_USER_NAME}\
-"
-
 do_install() {
-      install -d ${D}${LEDLOOP_APP_PATH}
-      install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
-      install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
-      install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}example_2.py"
-      install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}example_3.py"
-      install -m755 "${WORKDIR}/off.py" "${D}${LEDLOOP_APP_PATH}off.py"
-      chown ${LEDLOOP_USER_NAME}:users -R ${D}${LEDLOOP_APP_PATH}
+    install -d ${D}${LEDLOOP_APP_PATH}
+    install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
+    install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
+    install -m755 "${WORKDIR}/off.py" "${D}${LEDLOOP_APP_PATH}off.py"
 
-      install -d ${D}/${systemd_unitdir}/system
-      install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
-      install -m 0644 ${WORKDIR}/ledloop-shutdown.service ${D}/${systemd_unitdir}/system/ledloop-shutdown.service
-      install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
-      install -d ${D}${sysconfdir}/systemd/system/shutdown.target.wants/
-      ln -s ${systemd_unitdir}/ledloop-shutdown.service ${D}${sysconfdir}/systemd/system/shutdown.target.wants/ledloop-shutdown.service
+    # Install examples
+    install -d ${D}${LEDLOOP_APP_PATH}examples/
+    install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}colorful.py"
+    install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}snake.py"
+
+    # Manage ownership
+    chown ${LEDLOOP_USER_NAME}:ledloop -R ${D}${LEDLOOP_APP_PATH}
+
+    # Install systemd stuff
+    install -d ${D}/${systemd_unitdir}/system
+    install -m 0644 ${WORKDIR}/ledloop.service ${D}/${systemd_unitdir}/system/ledloop.service
+    install -m 0644 ${WORKDIR}/ledloop-shutdown.service ${D}/${systemd_unitdir}/system/ledloop-shutdown.service
+    install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
+    install -d ${D}${sysconfdir}/systemd/system/shutdown.target.wants/
+    ln -s ${systemd_unitdir}/ledloop-shutdown.service ${D}${sysconfdir}/systemd/system/shutdown.target.wants/ledloop-shutdown.service
 }

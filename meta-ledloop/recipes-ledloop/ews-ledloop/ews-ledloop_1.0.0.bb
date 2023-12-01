@@ -6,20 +6,12 @@ SECTION = "web"
 LICENSE = "CLOSED"
 
 inherit flutter-web
-
 require conf/include/ledloop-user-common.inc
-inherit useradd
 
 RDEPENDS:${PN} += "nginx python3-core"
 
-FILESEXTRAPATHS:prepend := "${THISDIR}/scripts:"
-SRCREV = "fee811faad30c8227bf933c206fad89d361c50bd"
-SRC_URI = " \
-    git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main \
-    file://test.py \
-    file://test-simple.py \
-"
-
+SRCREV = "ecd3cab85275862514393ca256ae630cd723b985"
+SRC_URI = "git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main"
 
 S = "${WORKDIR}/git"
 
@@ -27,20 +19,12 @@ PUBSPEC_APPNAME = "ews_ledloop"
 FLUTTER_APP_RUNTIME_MODES = "release"
 FLUTTER_INSTALL_DIR := "${LEDLOOP_EWS_PATH}"
 
-USERADD_PACKAGES = "${PN}"
-USERADD_PARAM:${PN} = " \
-	--home ${LEDLOOP_USER_PATH} \
-	--groups users \
-	--user-group ${LEDLOOP_USER_NAME}\
-"
+RDEPENDS:${PN} = "comm-ledloop"
 
 do_install:append() {
-    ln -s ${LEDLOOP_USER_PATH}app-ledloop/led-map.json "${D}${FLUTTER_INSTALL_DIR}assets/led-map.json"
-    ln -s ${LEDLOOP_USER_PATH}app-ledloop/work-mode.json "${D}${FLUTTER_INSTALL_DIR}assets/work-mode.json"
+    # Create soft links for accessing backend json files
+    ln -s ${LEDLOOP_COMM_PATH} "${D}${FLUTTER_INSTALL_DIR}scripts"
 
-    install -d "${D}/${FLUTTER_INSTALL_DIR}scripts"
-    install -D -m755 "${WORKDIR}/test.py" "${D}${FLUTTER_INSTALL_DIR}scripts/test.py"
-    install -D -m755 "${WORKDIR}/test-simple.py" "${D}${FLUTTER_INSTALL_DIR}scripts/test-simple.py"
     # Asigning appropriate user and group
     chown ${LEDLOOP_USER_NAME}:users -R ${D}${FLUTTER_INSTALL_DIR}
 }
