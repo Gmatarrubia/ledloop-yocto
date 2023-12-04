@@ -18,13 +18,18 @@ S = "${WORKDIR}/git"
 PUBSPEC_APPNAME = "ews_ledloop"
 FLUTTER_APP_RUNTIME_MODES = "release"
 FLUTTER_INSTALL_DIR := "${LEDLOOP_EWS_PATH}"
+FLUTTER_BUILD_ARGS ??= "web --no-tree-shake-icons --web-renderer html"
 
 RDEPENDS:${PN} = "comm-ledloop"
 
 do_install:append() {
+
+    # Prevent json from install.
+    rm -rf ${D}${FLUTTER_INSTALL_DIR}*json
+
     # Create soft links for accessing backend json files
     ln -s ${LEDLOOP_COMM_PATH} "${D}${FLUTTER_INSTALL_DIR}scripts"
 
     # Asigning appropriate user and group
-    chown ${LEDLOOP_USER_NAME}:users -R ${D}${FLUTTER_INSTALL_DIR}
+    chown ${LEDLOOP_USER_NAME}:${LEDLOOP_USER_NAME} -R ${D}${FLUTTER_INSTALL_DIR}
 }

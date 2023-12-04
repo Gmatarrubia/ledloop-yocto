@@ -1,6 +1,7 @@
 LICENSE = "CLOSED"
 
 SRC_URI = "file://comm-ledloop.py \
+           file://get-config.py \
            file://test.py \
            "
 

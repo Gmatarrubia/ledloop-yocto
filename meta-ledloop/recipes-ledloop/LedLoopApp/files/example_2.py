@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-
-# SPDX-License-Identifier: MIT
+#!/usr/bin/python3                     
 
 # Simple test for NeoPixels on Raspberry Pi
 import time
