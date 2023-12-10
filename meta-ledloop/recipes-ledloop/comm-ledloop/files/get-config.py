@@ -13,7 +13,7 @@ def main():
     print("Content-type: application/json")
     print("")
     work = load_work_json()
-    print(work)
+    print(json.dumps(work))
 
 if __name__ == "__main__":
     main()
