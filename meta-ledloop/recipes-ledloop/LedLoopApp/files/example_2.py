@@ -1,4 +1,4 @@
-#!/usr/bin/python3                     
+#!/usr/bin/python3
 
 # Simple test for NeoPixels on Raspberry Pi
 import time
