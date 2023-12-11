@@ -48,6 +48,10 @@ do_install() {
     install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}examples/colorful.py"
     install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}examples/snake.py"
 
+    # Install test
+    install -d ${D}${LEDLOOP_APP_PATH}tests/
+    install -D -m755 "${S}"/tests/*.py "${D}${LEDLOOP_APP_PATH}/tests/"
+
     # Manage ownership
     chown ${LEDLOOP_USER_NAME}:ledloop -R ${D}${LEDLOOP_APP_PATH}
 
