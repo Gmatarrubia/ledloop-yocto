@@ -1,6 +1,7 @@
 LICENSE = "CLOSED"
 
 SRC_URI = "file://comm-ledloop.py \
+           file://post-json.py \
            file://get-config.py \
            file://get-info.py \
            file://test.py \
@@ -26,5 +27,5 @@ do_install() {
     ln -s ${LEDLOOP_APP_PATH}work-mode.json "${D}${LEDLOOP_COMM_PATH}figures-mode.json"
 
     # Manage ownership
-    chown ${LEDLOOP_USER_NAME}:ledloop -R ${D}${LEDLOOP_COMM_PATH}
+    chown ${LEDLOOP_USER_NAME}:${LEDLOOP_USER_NAME} -R ${D}${LEDLOOP_COMM_PATH}
 }
