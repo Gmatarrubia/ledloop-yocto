@@ -4,7 +4,7 @@ SRC_URI = "file://comm-ledloop.py \
            file://set-config.py \
            file://get-config.py \
            file://get-info.py \
-           file:/get-map.py \
+           file://get-map.py \
            file://test.py \
            "
 
