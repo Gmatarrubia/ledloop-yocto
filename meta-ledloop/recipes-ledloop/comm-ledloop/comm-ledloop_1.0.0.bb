@@ -25,7 +25,7 @@ do_install() {
     # Create soft links for accessing backend json files
     ln -s ${LEDLOOP_APP_PATH}led-map.json "${D}${LEDLOOP_COMM_PATH}led-map.json"
     ln -s ${LEDLOOP_APP_PATH}work-mode.json "${D}${LEDLOOP_COMM_PATH}work-mode.json"
-    ln -s ${LEDLOOP_APP_PATH}work-mode.json "${D}${LEDLOOP_COMM_PATH}figures-mode.json"
+    ln -s ${LEDLOOP_APP_PATH}figures-mode.json "${D}${LEDLOOP_COMM_PATH}figures-mode.json"
 
     # Manage ownership
     chown ${LEDLOOP_USER_NAME}:${LEDLOOP_USER_NAME} -R ${D}${LEDLOOP_COMM_PATH}
