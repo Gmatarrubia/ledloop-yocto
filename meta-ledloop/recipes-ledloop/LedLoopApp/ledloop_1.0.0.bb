@@ -8,7 +8,7 @@ SRC_URI = "git://github.com/Gmatarrubia/app-ledloop.git;protocol=https;branch=ma
            file://example_3.py \
            file://off.py \
            "
-SRCREV = "7f7a9a663536f4cdee5de1a9b840edcdf26a7cfd"
+SRCREV = "261f124ed6d0516dfa16ae81d303b1e3474af976"
 S = "${WORKDIR}/git"
 
 require conf/include/ledloop-user-common.inc
