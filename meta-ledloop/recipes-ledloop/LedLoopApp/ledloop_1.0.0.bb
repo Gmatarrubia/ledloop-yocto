@@ -6,9 +6,8 @@ SRC_URI = "git://github.com/Gmatarrubia/app-ledloop.git;protocol=https;branch=ma
            file://ledloop-shutdown.service \
            file://example_2.py \
            file://example_3.py \
-           file://off.py \
            "
-SRCREV = "261f124ed6d0516dfa16ae81d303b1e3474af976"
+SRCREV = "4af730da2774330ba01b404090015b949aa68f0b"
 S = "${WORKDIR}/git"
 
 require conf/include/ledloop-user-common.inc
@@ -41,7 +40,6 @@ do_install() {
     install -d ${D}${LEDLOOP_APP_PATH}
     install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
     install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
-    install -m755 "${WORKDIR}/off.py" "${D}${LEDLOOP_APP_PATH}off.py"
 
     # Install examples
     install -d ${D}${LEDLOOP_APP_PATH}examples/
