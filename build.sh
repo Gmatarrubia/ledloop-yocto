@@ -85,8 +85,8 @@ fi
 if [ -n "${WIFISSID}" ] && [ -n "${WIFIPASS}" ]
 then
     pushd ./meta-ledloop/recipes-connectivity/wpa-supplicant/files || return
-    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" wpa_supplicant.conf.custom
-    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" wpa_supplicant.conf.custom
+    sed -i -E "s/ssid=\".*\"/ssid=\"$WIFISSID\"/g" ./*
+    sed -i -E "s/psk=\".*\"/psk=\"$WIFIPASS\"/g" ./*
     popd || return
 fi
 
