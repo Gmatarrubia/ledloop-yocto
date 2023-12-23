@@ -73,5 +73,5 @@ Coming soon.
 If everything was successful you might see a similiar screen to the following one.
 
 <div align="center">
-  <img src="docs/app1.png" width="400" hspace="10">
+  <img src="docs/app1.jpeg" width="400" hspace="10">
 </div>
