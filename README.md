@@ -7,6 +7,11 @@ The LED strips configuration is fully customizable to your needs as well as the 
 The OS is robust and secure becuase it is based in yocto with a huge community with take care about the support and also, it has been design with security in mind, in contrast with anothers 
 general-purposed embedded OS.
 
+<div align="center">
+  <img src="docs/rainbow.jpg" width="470" hspace="10">
+  <img src="docs/app1.jpeg" width="180" hspace="10">
+</div>
+
 ## Building software
 
 This repo is powered by the yocto project and docker.
@@ -58,7 +63,10 @@ Finally, connect de all the grounds.
 
 ## How to use the product: play time
 
-Coming soon.
+
+<div align="center">
+  <img src="docs/rainbow.jpg" width="400" hspace="10">
+</div>
 
 ### Configuration
 
