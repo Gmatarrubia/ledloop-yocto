@@ -90,3 +90,7 @@ If everything was successful you might see a similar screen to the following one
 <div align="center">
   <img src="docs/app1.jpeg" width="400" hspace="10">
 </div>
+
+## License
+
+This project is licensed under the GNU GPLv3.0 license. See [LICENSE](LICENSE) file for more details.
