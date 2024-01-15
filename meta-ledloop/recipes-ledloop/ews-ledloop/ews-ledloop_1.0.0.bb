@@ -10,7 +10,7 @@ require conf/include/ledloop-user-common.inc
 
 RDEPENDS:${PN} += "nginx python3-core"
 
-SRCREV = "53d69e5a5bd3b56631f55d2f7261cb369d534e18"
+SRCREV = "b0545e291223e69a57cf55c0fd2f0d93306edb9b"
 SRC_URI = "git://github.com/Gmatarrubia/ledloop-ews.git;protocol=https;branch=main"
 
 S = "${WORKDIR}/git"
