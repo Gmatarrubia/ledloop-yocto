@@ -1,12 +1,19 @@
 LICENSE = "GNUv3"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464"
+FILESEXTRAPATHS:prepend := "${THISDIR}/confs:"
 
 SRC_URI = "git://github.com/Gmatarrubia/app-ledloop.git;protocol=https;branch=main \
            file://ledloop.service \
            file://ledloop-shutdown.service \
-           file://example_2.py \
-           file://example_3.py \
-           "
+           file://figures-mode.json \
+           file://led-map.json \
+"
+
+SRC_URI:append:debug = "\
+    file://example_2.py \
+    file://example_3.py \
+"
+
 SRCREV = "58c54d778fd3727216e9a76d901da3b2f1b087a1"
 S = "${WORKDIR}/git"
 
@@ -41,15 +48,6 @@ do_install() {
     install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
     install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
 
-    # Install examples
-    install -d ${D}${LEDLOOP_APP_PATH}examples/
-    install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}examples/colorful.py"
-    install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}examples/snake.py"
-
-    # Install test
-    install -d ${D}${LEDLOOP_APP_PATH}tests/
-    install -D -m755 "${S}"/tests/*.py "${D}${LEDLOOP_APP_PATH}/tests/"
-
     # Manage ownership
     chown ${LEDLOOP_USER_NAME}:ledloop -R ${D}${LEDLOOP_APP_PATH}
 
@@ -60,4 +58,15 @@ do_install() {
     install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
     install -d ${D}${sysconfdir}/systemd/system/shutdown.target.wants/
     ln -s ${systemd_unitdir}/ledloop-shutdown.service ${D}${sysconfdir}/systemd/system/shutdown.target.wants/ledloop-shutdown.service
+}
+
+do_install:append:debug() {
+    # Install examples
+    install -d ${D}${LEDLOOP_APP_PATH}examples/
+    install -D -m755 "${WORKDIR}/example_2.py" "${D}${LEDLOOP_APP_PATH}examples/colorful.py"
+    install -m755 "${WORKDIR}/example_3.py" "${D}${LEDLOOP_APP_PATH}examples/snake.py"
+
+    # Install test
+    install -d ${D}${LEDLOOP_APP_PATH}tests/
+    install -D -m755 "${S}"/tests/*.py "${D}${LEDLOOP_APP_PATH}/tests/"
 }

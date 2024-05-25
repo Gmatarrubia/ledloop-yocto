@@ -28,3 +28,5 @@ build/
 qemu/
 rpi3/
 rpizw/
+.vscode/settings.json
+ledloop-conf/*
