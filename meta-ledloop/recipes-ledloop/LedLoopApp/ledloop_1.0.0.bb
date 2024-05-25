@@ -48,6 +48,12 @@ do_install() {
     install -m755 "${S}"/*.py "${D}${LEDLOOP_APP_PATH}"
     install -m755 "${S}"/*.json "${D}${LEDLOOP_APP_PATH}"
 
+    if [ -f "${WORKDIR}"/led-map.json ] && [ -f "${WORKDIR}"/figures-mode.json ]; then
+        bbnote "---Installing custom configuration---"
+        install -m755 "${WORKDIR}"/led-map.json "${D}${LEDLOOP_APP_PATH}"
+        install -m755 "${WORKDIR}"/figures-mode.json "${D}${LEDLOOP_APP_PATH}"
+    fi
+
     # Manage ownership
     chown ${LEDLOOP_USER_NAME}:ledloop -R ${D}${LEDLOOP_APP_PATH}
 
