@@ -54,6 +54,9 @@ do_install() {
         install -d "${D}/settings/"
         install -D -m755 "${WORKDIR}"/led-map.json "${D}"/settings/
         install -D -m755 "${WORKDIR}"/figures-mode.json "${D}"/settings/
+        # Remove previous versions
+        rm -f "${D}${LEDLOOP_APP_PATH}"/led-map.json
+        rm -f "${D}${LEDLOOP_APP_PATH}"/figures-mode.json
         ln -s /settings/led-map.json "${D}${LEDLOOP_APP_PATH}"/led-map.json
         ln -s /settings/figures-mode.json "${D}${LEDLOOP_APP_PATH}"/figures-mode.json
 
