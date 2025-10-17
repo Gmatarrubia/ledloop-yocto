@@ -14,7 +14,7 @@ SRC_URI:append:debug = "\
     file://example_3.py \
 "
 
-SRCREV = "58c54d778fd3727216e9a76d901da3b2f1b087a1"
+SRCREV = "075d9cd38354c8fb9bb5c6c0be1e40ff53370460"
 S = "${WORKDIR}/git"
 
 require conf/include/ledloop-user-common.inc
