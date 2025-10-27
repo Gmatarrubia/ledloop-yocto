@@ -1,92 +1,42 @@
 {
   "figures": [
     {
-      "name" : "horns",
-      "ledLinesList": [
-        {
-          "pixel": "PIXELS",
-          "first": 6,
-          "last": 11
-        },
-        {
-          "pixel": "PIXELS",
-          "first": 12,
-          "last": 17
-        },
-        {
-          "pixel": "PIXELS_2",
-          "first": 23,
-          "last": 18
-        },
-        {
-          "pixel": "PIXELS_2",
-          "first": 17,
-          "last": 12
-        }
-      ]
-    },
-    {
-      "name" : "core",
-      "ledLinesList": [
-        {
-          "pixel": "PIXELS_2",
-          "first": 5,
-          "last": 0
-        },
-        {
-          "pixel": "PIXELS_2",
-          "first": 6,
-          "last": 11
-        },
-        {
-          "pixel": "PIXELS",
-          "first": 0,
-          "last": 5
-        }
-      ]
-    },
-    {
       "name" : "complete",
       "ledLinesList": [
         {
-          "pixel": "PIXELS_2",
-          "first": 0,
-          "last": 23
-        },
-        {
           "pixel": "PIXELS",
-          "first": 17,
-          "last": 0
+          "first": 0,
+          "last": 89
         }
       ]
     },
     {
-      "name" : "nucleo",
+      "name" : "middle up",
       "ledLinesList": [
         {
-          "pixel": "PIXELS_2",
-          "first": 5,
-          "last": 0
-        },
-        {
-          "pixel": "PIXELS_2",
-          "first": 23,
-          "last": 18
-        },
-        {
-          "pixel": "PIXELS_2",
-          "first": 6,
-          "last": 11
-        },
-        {
           "pixel": "PIXELS",
-          "first": 17,
-          "last": 12
-        },
+          "first": 45,
+          "last": 89
+        }
+      ]
+    },
+    {
+      "name" : "middle down",
+      "ledLinesList": [
         {
           "pixel": "PIXELS",
           "first": 0,
-          "last": 5
+          "last": 44
+        }
+      ]
+    },
+    {
+      "name" : "top",
+      "ledLinesList": [
+        {
+          "pixel": "PIXELS",
+          "first": 80,
+          "last": 89
         }
       ]
     }
