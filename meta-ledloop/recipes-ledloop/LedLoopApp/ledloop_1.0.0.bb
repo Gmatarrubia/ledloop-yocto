@@ -26,6 +26,7 @@ SYSTEMD_SERVICE:${PN}:append = " ledloop.service ledloop-shutdown.service "
 FILES:${PN} += "${LEDLOOP_APP_PATH}*"
 FILES:${PN} += "${systemd_unitdir}/system/ledloop.service"
 FILES:${PN} += "${systemd_unitdir}/system/ledloop-shutdown.service"
+FILES:${PN} += "/settings/*"
 
 RDEPENDS:${PN} = "\
     rpi-gpio \
@@ -50,8 +51,17 @@ do_install() {
 
     if [ -f "${WORKDIR}"/led-map.json ] && [ -f "${WORKDIR}"/figures-mode.json ]; then
         bbnote "---Installing custom configuration---"
-        install -m755 "${WORKDIR}"/led-map.json "${D}${LEDLOOP_APP_PATH}"
-        install -m755 "${WORKDIR}"/figures-mode.json "${D}${LEDLOOP_APP_PATH}"
+        install -d "${D}/settings/"
+        install -D -m755 "${WORKDIR}"/led-map.json "${D}"/settings/
+        install -D -m755 "${WORKDIR}"/figures-mode.json "${D}"/settings/
+        # Remove previous versions
+        rm -f "${D}${LEDLOOP_APP_PATH}"/led-map.json
+        rm -f "${D}${LEDLOOP_APP_PATH}"/figures-mode.json
+        ln -s /settings/led-map.json "${D}${LEDLOOP_APP_PATH}"/led-map.json
+        ln -s /settings/figures-mode.json "${D}${LEDLOOP_APP_PATH}"/figures-mode.json
+
+        install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants/
+        ln -s ${systemd_unitdir}/system/wpa_supplicant@.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/wpa_supplicant-nl80211@wlan0.service
     fi
 
     # Manage ownership
